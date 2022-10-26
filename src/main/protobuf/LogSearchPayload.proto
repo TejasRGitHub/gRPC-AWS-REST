@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+// The service declaration for LogFinder
+service LogFinder {
+  rpc getLogsFromInput (LogFormatInput) returns (LogSearchOutput) {}
+}
+
+// The request message containing Timestamp and dT
+message LogFormatInput {
+  string date = 1;
+  string timeStamp = 2;
+  string interval = 3;
+}
+
+// The response message containing response
+message LogSearchOutput {
+  string outputString = 1;
+}
