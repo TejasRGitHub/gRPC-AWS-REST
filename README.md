@@ -92,6 +92,6 @@ The AWS Lambda functions are present in the `AWSLambdaSrc` folder and contain tw
 
 #### References
 
-1. (Scala Pb gRPC Support)[https://scalapb.github.io/docs/grpc]
-2. (Single Request using Akka HTTP)[https://doc.akka.io/docs/akka-http/current/client-side/request-level.html]
-3. (Exposing Lambda as REST Services)[https://www.youtube.com/watch?v=uFsaiEhr1zs]
+1. [Scala Pb gRPC Support](https://scalapb.github.io/docs/grpc)
+2. [Single Request using Akka HTTP](https://doc.akka.io/docs/akka-http/current/client-side/request-level.html)
+3. [Exposing Lambda as REST Services](https://www.youtube.com/watch?v=uFsaiEhr1zs)
