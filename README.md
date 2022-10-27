@@ -24,6 +24,20 @@ Link to youtube video -
 
 The output for each of the above programs is present in the `output` directory of this repo.
 
+## Input Configurations 
+
+All the inputs and other configurations are set in the application.conf file. Below are the configurations used to run this project
+
+| Input Parameters | Value |
+|------------------| ------|
+|Date |  |
+| Timestamp | |
+| dT | |
+
+Other parameters like the AWS API Gateway URL, gRPC server port number and wait and timeout seconds are also configurable by changing the application.conf
+This project assumes that the logs are generated in ascending order and that there is not date change when searching for logs.
+The logs are generated and follow the log format specified in the `./src/main/rescources/logback.xml` file.  
+
 ## Setting up AWS Lambda 
 
 Login to the AWS Console then goto AWS Lambda by typing in `lambda` in the search bar. Once you are on the lambda page, create a lambda function with default settings and with s3 read access ( For more details on this check the Youtube video). 
