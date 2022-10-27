@@ -67,12 +67,31 @@ gRPC server reads these values , converting to the LogSearchOutput format and se
 
 REST Calls are performed using the Akka HTTP library. RESTCaller file contains a function `sendRequest` which creates
 a REST HTTP Call with the given `url` input paramater. `sendRequest` functions takes in url, date, timeStamp, interval as inputs
-Once the HTTP request is made it is captured in the Future[[HTTPResponse]] type. This then is unwrapped using flatMap method 
+Once the HTTP request is made it is captured in the Future[HTTPResponse] type. This then is unwrapped using flatMap method 
 and the HTTP Status code corresponding the request is extracted. Based on this HTTP Status Code, further response is bifurcated.
 If the HTTP status code is 200 then the entire JSON data is sent. If it is 400, then string containing failure of the GET request is sent.
 
 ### Lambda functions
 
-The AWS Lambda functions 
+The AWS Lambda functions are present in the `AWSLambdaSrc` folder and contain two file 
+1. checkLogMessages.py - Contains lambda function which asserts whether logs messages are present in the given time range.
+   This lambda function takes the inputs like date, timestamp, interval from the queryParameters passed onto by the event variable.
+   The lambda function then finds the correct log file and then split the entire file by the '\n' character and stores the record into an array.
+   As the logs records are assumed to be in ascending order , the start time and end time of the logs can be easily found out.
+   Later, it is checked if the timestamps are between the start and the end time. If it is a 200 HTTP status response is sent with {data : true}
+   If the records are not found then 400 HTTP status response code is send with {data: false}
+2. getMessagesLambda.py - Contains lambda function which extracts logs messages which contain / have injected regex pattern from a time interval.
+   This lambda function takes the inputs like date, timestamp, interval from the queryParameters passed onto by the event variable.
+   The lambda function then finds the correct log file and then split the entire file by the '\n' character and stores the record into an array.
+   As the logs records are assumed to be in ascending order , the start time and end time of the logs can be easily found out.
+   Later, it is checked if the timestamps are between the start and the end time. If the timestamp is present in the log files then 
+   a binary Search is initiated to find the start timestamp of time interval and end timestamp of the time interval (i.e. T - dT and T + dT). 
+   Once the time intervals are found , the binary search returns the index of the timestamp records ( and returns the closest if the timestamp doesn't exist ). 
+   In order to get the logs messages which have injected regex pattern, `filter` operation in python is used. After this, response is constructed containing the messages which contain the messages.
 
- 
+
+#### References
+
+1. (Scala Pb gRPC Support)[https://scalapb.github.io/docs/grpc]
+2. (Single Request using Akka HTTP)[https://doc.akka.io/docs/akka-http/current/client-side/request-level.html]
+3. (Exposing Lambda as REST Services)[https://www.youtube.com/watch?v=uFsaiEhr1zs]
