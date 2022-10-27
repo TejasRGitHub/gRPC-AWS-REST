@@ -27,19 +27,52 @@ The output for each of the above programs is present in the `output` directory o
 ## Setting up AWS Lambda 
 
 Login to the AWS Console then goto AWS Lambda by typing in `lambda` in the search bar. Once you are on the lambda page, create a lambda function with default settings and with s3 read access ( For more details on this check the Youtube video). 
-Once you have created lambda function, upload the checkLogMessage.zip or getMessageLambda.zip. Once the code is uploaded on the lambda function.
+Once you have created lambda function, upload the checkLogMessage.zip or getMessageLambda.zip. 
+Once the code is uploaded on the lambda function then `Deploy` the code. Edit the execution by specifying the functionName.lambda_handler
+Do the same process for both the .zip file and setup two lambda functions.
 
 ## Setting up AWS Gateway 
 
+Login to AWS Console and goto the API Gateway by searching for it. Then click on Create button for REST Service. Once you
+are redirected to the APIs page type in the name of the API , select New API and click next. Once you are on the APIs page, 
+click on Action button and select Create Resource and then fill in the details. Then click on the action button and create method and select GET.
+Fill in the details to have execution context as Lambda and select the Lambda Proxy Integration. Click Create and then select action and deploy the API.
+Goto to the GET API section and select the URL pointing corresponding to this GET service
 
 ## Setting up EC2 and log generator
 
 
+
 ## Project Deliverables
+
+The project required to two tasks. 
+1. gRPC client using protobuf which communicates AWS Lambda via a GET HTTP method to get information if log messages are present or not.
+2. Client using Akka HTTP which calls AWS Lambda via GET HTTP method to retrieve log messages containing regex pattern.
 
 ### gRPC Client and Server
 
+The message format for communicating using gRPC is mentioned in the .proto file in the `protobuf` folder. 
+The message format contains 3 input params - date, timestamp, interval. Date corresponds to the date of the log file in which
+log messages are to be searched against a timestamp and given interval. The interval value is used to find the time range
+i.e. from  (timestamp - interval) to (timestamp + interval). 
+
+All these parameters are string and are passed to the gRPC server. These parameters are serialized under LogFormatInput message format type. 
+gRPC server is started on `port` mentioned in the `application.conf` file. When protobuf message reaches gRPC it is 
+deserialized internally adhering to the LogFormatInput. Thus , input values from the protobuf are available in the gRPC context.
+These input values are then passed onto the lambda function via an API gateway. This is performed by the RESTCaller Object written in RESTCaller scala file. The results returned by the server are 
+200 HTTP Response with JSON data containing flag (true ) OR 400 HTTP Response with JSON data containing flag (false). 
+gRPC server reads these values , converting to the LogSearchOutput format and sends it to the gRPC Client. 
+
 ### REST Call with Akka HTTP
+
+REST Calls are performed using the Akka HTTP library. RESTCaller file contains a function `sendRequest` which creates
+a REST HTTP Call with the given `url` input paramater. `sendRequest` functions takes in url, date, timeStamp, interval as inputs
+Once the HTTP request is made it is captured in the Future[[HTTPResponse]] type. This then is unwrapped using flatMap method 
+and the HTTP Status code corresponding the request is extracted. Based on this HTTP Status Code, further response is bifurcated.
+If the HTTP status code is 200 then the entire JSON data is sent. If it is 400, then string containing failure of the GET request is sent.
 
 ### Lambda functions
 
+The AWS Lambda functions 
+
+ 
