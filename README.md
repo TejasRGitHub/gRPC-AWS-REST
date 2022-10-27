@@ -34,7 +34,9 @@ All the inputs and other configurations are set in the application.conf file. Be
 | Timestamp | |
 | dT | |
 
-Other parameters like the AWS API Gateway URL, gRPC server port number and wait and timeout seconds are also configurable by changing the application.conf
+Other parameters like the AWS API Gateway URL, gRPC server port number and wait and timeout seconds are also configurable by changing the application.conf.
+If you happen to change the configurations please restart the gRPC server. 
+
 This project assumes that the logs are generated in ascending order and that there is not date change when searching for logs.
 The logs are generated and follow the log format specified in the `./src/main/rescources/logback.xml` file.  
 
