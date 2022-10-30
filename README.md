@@ -40,7 +40,7 @@ This project assumes that the logs are generated in ascending order and that the
 The logs are generated and follow the log format specified in the `./src/main/rescources/logback.xml` file. 
 
 The logs file are generated on the EC2 instance with [Log Generator](https://github.com/Tejas-UIC/LogGeneratorForHW3.git) 
-and the file are written to a S3 bucket. The log file are generated with the following format - LogFileGenerator.<Date>.log
+and the file are written to a S3 bucket. The log file are generated with the following format - LogFileGenerator."$Date".log
 
 ## Setting up AWS Lambda 
 
