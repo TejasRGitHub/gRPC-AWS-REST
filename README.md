@@ -45,8 +45,8 @@ and the file are written to a S3 bucket. The log file are generated with the fol
 ## Setting up AWS Lambda 
 
 Login to the AWS Console then goto AWS Lambda by typing in `lambda` in the search bar. Once you are on the lambda page, create a lambda function with default settings and with s3 read access ( For more details on this check the Youtube video). 
-Once you have created lambda function, upload the checkLogMessage.zip or getMessageLambda.zip. 
-Once the code is uploaded on the lambda function then `Deploy` the code. Edit the execution by specifying the functionName.lambda_handler
+Once you have created lambda function, upload the checkLogMessage.zip or getMessageLambda.zip ( if not present you can simply create both zips by clicking on the function and the config.ini and zipping it). 
+Once the code is uploaded on the lambda function then `Deploy` the code. Edit the execution by specifying the "functionName.lambda_handler" (for e.g. checkLogMessages.lambda_handler)
 Do the same process for both the .zip file and setup two lambda functions.
 
 ## Setting up AWS Gateway 
