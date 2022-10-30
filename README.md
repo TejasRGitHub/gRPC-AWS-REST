@@ -6,7 +6,7 @@ Tasks -
 1. gRPC Client to fetch boolean information if a log messages are present in a particular time range (interval). This tasks makes use of gRPC client and server which communicate with protobuf's message format. In order to fetch information about messages gRPC server makes an HTTP  REST request to AWS Lambda 
 2. Client to call RESTful services to fetch log lines which contain designated regex pattern. This makes use Akka HTTP library to make a REST request to a REST ful service created with AWS Lambda. 
 
-Link to youtube video - 
+Link to youtube video - https://youtu.be/qFWvzghniis
 
 ## Setting up project and compiling
 
