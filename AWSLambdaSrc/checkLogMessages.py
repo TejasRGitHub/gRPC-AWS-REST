@@ -10,7 +10,7 @@ import boto3 as boto3
 def lambda_handler(event, context):
     #Initialize the logger
     logger = logging.getLogger()
-    #logger.setLevel(logging.INFO)
+    logger.setLevel(logging.INFO)
 
     # fetch the query parameters that are send from the API gateway
     iDate = event['queryStringParameters']['date']

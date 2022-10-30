@@ -22,23 +22,25 @@ Link to youtube video -
 | CS441HW2.gRPCServer | starts the gRPC server on port mentioned in the application.conf|
 | RESTCallerPackage.RESTCaller | Calls the Akka HTTP which creates a RESTful request |
 
-The output for each of the above programs is present in the `output` directory of this repo.
 
 ## Input Configurations 
 
-All the inputs and other configurations are set in the application.conf file. Below are the configurations used to run this project
+All the inputs and other configurations are set in the application.conf file. Below are the configurations used to run this project while demo
 
-| Input Parameters | Value |
-|------------------| ------|
-|Date |  |
-| Timestamp | |
-| dT | |
+| Input Parameters | Value      |
+|-----------------|------------|
+| Date            | 2022-10-30 |
+| Timestamp       | 03:18:33   |
+| dT              | 00:00:10   |
 
 Other parameters like the AWS API Gateway URL, gRPC server port number and wait and timeout seconds are also configurable by changing the application.conf.
 If you happen to change the configurations please restart the gRPC server. 
 
 This project assumes that the logs are generated in ascending order and that there is not date change when searching for logs.
-The logs are generated and follow the log format specified in the `./src/main/rescources/logback.xml` file.  
+The logs are generated and follow the log format specified in the `./src/main/rescources/logback.xml` file. 
+
+The logs file are generated on the EC2 instance with [Log Generator](https://github.com/Tejas-UIC/LogGeneratorForHW3.git) 
+and the file are written to a S3 bucket. The log file are generated with the following format - LogFileGenerator.<Date>.log
 
 ## Setting up AWS Lambda 
 
@@ -57,7 +59,15 @@ Goto to the GET API section and select the URL pointing corresponding to this GE
 
 ## Setting up EC2 and log generator
 
+In order to setup EC2 , goto the AWS EC2 console and click launch instance. Please follow the instructions in the video
+to setup an EC2 and SSH into it. In order to get SSH details click on the connect button on the EC2 Instances Console.
 
+References for installation of tools -
+sbt - https://www.scala-sbt.org/1.x/docs/Installing-sbt-on-Linux.html
+Installing Java - sudo yum install java-1.8.0-openjdk
+AWS CLI - https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+
+Log Generator Code - https://github.com/Tejas-UIC/LogGeneratorForHW3.git
 
 ## Project Deliverables
 

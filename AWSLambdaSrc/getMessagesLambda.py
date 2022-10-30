@@ -5,12 +5,14 @@ import re
 from datetime import datetime
 from datetime import timedelta
 import boto3 as boto3
+import hashlib
 
 
 # Function to get the Log messages which are in the given time interval
 # Return 400 level HTTP status code if the messages or the .log file doesn't exists
 def lambda_handler(event, context):
     logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
 
     iDate = event['queryStringParameters']['date']
     iTimeStamp = event['queryStringParameters']['timestamp']
@@ -74,8 +76,13 @@ def lambda_handler(event, context):
         logLines[start_index: end_index]))
     logger.info(matchingLogLines)
 
+    #Convert the log messages for MD5 Hashes
+    md5HashesList = list(map( hashFunction , matchingLogLines))
+    logger.info("The MD5 hashed list is -> ")
+    logger.info(md5HashesList)
+
     responseMsg= {}
-    responseMsg['data'] = matchingLogLines
+    responseMsg['data'] = md5HashesList
 
     responseObj = {}
     responseObj['statusCode'] = 200
@@ -84,6 +91,9 @@ def lambda_handler(event, context):
     responseObj['body'] = json.dumps(responseMsg)
 
     return responseObj
+
+def hashFunction(item):
+    return hashlib.md5(item.encode('utf-8')).hexdigest()
 
 
 # Binary Search function to get the logLine correponding to the searchTime
