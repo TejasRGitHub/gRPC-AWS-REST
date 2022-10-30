@@ -114,7 +114,7 @@ The AWS Lambda functions are present in the `AWSLambdaSrc` folder and contain tw
    a binary Search is initiated to find the start timestamp of time interval and end timestamp of the time interval (i.e. T - dT and T + dT). 
    Once the time intervals are found , the binary search returns the index of the timestamp records ( and returns the closest if the timestamp doesn't exist ). 
    In order to get the logs messages which have injected regex pattern, `filter` operation in python is used. After this, response is constructed containing the messages which contain the messages.
-
+   These messages are the MD5 hashed and then sent as response. Please take a look at the Lambda functions for more details.
 
 #### References
 
