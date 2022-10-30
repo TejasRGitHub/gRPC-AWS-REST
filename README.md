@@ -64,10 +64,15 @@ to setup an EC2 and SSH into it. In order to get SSH details click on the connec
 
 References for installation of tools -
 sbt - https://www.scala-sbt.org/1.x/docs/Installing-sbt-on-Linux.html
+
 Installing Java - sudo yum install java-1.8.0-openjdk
+
 AWS CLI - https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
 
 Log Generator Code - https://github.com/Tejas-UIC/LogGeneratorForHW3.git
+Please use the schedule script to run the LogGenerator code. The script for the same is located at `EC2_SchedulingScript/schedule.sh`
+
+Reference for creating a [cron job](https://help.dreamhost.com/hc/en-us/articles/215767047-Creating-a-custom-Cron-Job)
 
 ## Project Deliverables
 
